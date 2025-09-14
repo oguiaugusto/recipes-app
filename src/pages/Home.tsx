@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 
 import logo from '../logo-with-title.png';
 import { useGeneralContext } from '../context/GeneralContext';
+import { getUser } from '../helpers/localStorage';
 import '../styles/Home.scss';
 
 const Home: React.FC = () => {
@@ -18,6 +19,13 @@ const Home: React.FC = () => {
     ctx.handleLogin(name);
     navigate('/foods');
   };
+
+  useEffect(() => {
+    const user = getUser();
+    if (user && user.name) {
+      navigate('/foods');
+    }
+  }, [navigate]);
 
   return (
     <div className="home-page text-light d-flex flex-column">
