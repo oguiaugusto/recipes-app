@@ -3,17 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 
 import logo from '../logo-with-title.png';
+import { useGeneralContext } from '../context/GeneralContext';
 import '../styles/Home.scss';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+
+  const ctx = useGeneralContext();
   const [name, setName] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // localstorage logic
-
+    ctx.handleLogin(name);
     navigate('/foods');
   };
 

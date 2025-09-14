@@ -4,7 +4,7 @@ import { useSafeContext } from '../hooks/useSafeContext';
 
 interface IGeneralContext {
   setLoading: (x: boolean) => void;
-  handleLogin: VoidFunction;
+  handleLogin: (name: string) => void;
 }
 
 const GeneralContext = createContext<IGeneralContext | null>(null);
