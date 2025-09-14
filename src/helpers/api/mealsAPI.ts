@@ -1,10 +1,11 @@
 import { IFood, IFoodDetails, IIngredient } from '../../interfaces/food';
 import { IArea, ICategory } from '../../interfaces/misc';
+import { shuffleArray } from '../shuffleArray';
 import { baseFetch as b } from './baseFetch';
 
 const baseFetch = <T>(url: string, defaultReturn: T) => b('meals', url, defaultReturn);
 
-const ALL_MEALS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+// const ALL_MEALS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const ALL_CATEGORIES = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const ALL_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const ALL_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
@@ -19,7 +20,18 @@ const MEAL_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 const RANDOM_MEAL = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
-const fetchMeals = () => baseFetch<IFood[]>(ALL_MEALS, []);
+const fetchMeals = async () => {
+  const categories = await fetchMealsCategories();
+  const foods: IFood[] = [];
+
+  for (const { strCategory } of categories) {
+    const data = await fetchMealsByCategory(strCategory);
+    foods.push(...data);
+  }
+
+  return shuffleArray(foods);
+};
+
 const fetchMealsCategories = () => baseFetch<ICategory[]>(ALL_CATEGORIES, []);
 
 const fetchMealDetails = (id: string) =>
