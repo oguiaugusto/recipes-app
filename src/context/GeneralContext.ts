@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-
 import { useSafeContext } from '../hooks/useSafeContext';
 
 interface IGeneralContext {

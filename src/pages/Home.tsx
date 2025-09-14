@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-
-import logo from '../logo-with-title.png';
 import { useGeneralContext } from '../context/GeneralContext';
 import { getUser } from '../helpers/localStorage';
+import logo from '../logo-with-title.png';
 import '../styles/Home.scss';
 
 const Home: React.FC = () => {
