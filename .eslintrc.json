@@ -47,6 +47,7 @@
       "warn",
       { "prefer": "type-imports" }
     ],
+    "@typescript-eslint/no-floating-promises": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "import/order": [
