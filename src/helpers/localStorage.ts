@@ -1,4 +1,4 @@
-import type { IUser } from '../interfaces/user';
+import { IUser } from '../interfaces/user';
 
 export function saveUser(user: IUser) {
   localStorage.setItem('user', JSON.stringify(user));

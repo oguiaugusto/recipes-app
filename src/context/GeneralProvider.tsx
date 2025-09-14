@@ -1,5 +1,4 @@
-import type { PropsWithChildren } from 'react';
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 
 import { GeneralContext } from './GeneralContext';
 import { Loader } from '../components/Loader';
