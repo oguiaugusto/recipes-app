@@ -5,12 +5,15 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import './index.scss';
+import { GeneralProvider } from './context/GeneralProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <GeneralProvider>
+      <App />
+    </GeneralProvider>
   </React.StrictMode>,
 );
 
