@@ -1,10 +1,8 @@
-import { IUser } from '../interfaces/user';
-
-export function saveUser(user: IUser) {
-  localStorage.setItem('user', JSON.stringify(user));
+export function saveToStorage(key: string, value: any) {
+  localStorage.setItem(key, JSON.stringify(value));
 }
 
-export function getUser(): IUser | null {
-  const user = localStorage.getItem('user');
-  return user ? (JSON.parse(user) as IUser) : null;
+export function getFromStorage<T>(key: string): T | null {
+  const value = localStorage.getItem(key);
+  return value ? (JSON.parse(value) as T) : null;
 }

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useGeneralContext } from '../context/GeneralContext';
-import { getUser } from '../helpers/localStorage';
+import { getFromStorage } from '../helpers/localStorage';
 import logo from '../logo-with-title.png';
 import '../styles/Home.scss';
+import { IUser } from '../interfaces/user';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    const user = getUser();
+    const user = getFromStorage<IUser>('user');
     if (user && user.name) {
       navigate('/foods');
     }
