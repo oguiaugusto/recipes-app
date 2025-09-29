@@ -44,7 +44,7 @@ const Header: React.FC<Props> = (props) => {
     <div
       className={`header-bottom ${!expandedSearchBar ? 'close' : ''} w-100 d-sm-flex align-items-center align-self-center`}
     >
-      <InputGroup className="mt-2 mt-sm-1">
+      <InputGroup className="mt-3 mt-sm-2 mb-1 mb-sm-2">
         <Form.Control
           placeholder="Type something"
           value={searchValue}
@@ -54,7 +54,7 @@ const Header: React.FC<Props> = (props) => {
           Search
         </Button>
       </InputGroup>
-      <div className="header_search-selectors mt-2 mt-sm-2 d-flex justify-content-around">
+      <div className="header_search-selectors mt-3 mt-sm-2 mb-1 mb-sm-2 d-flex justify-content-around">
         {searchSelectors.map((x) => (
           <Form.Check
             key={`search-selector-${x.index}`}
