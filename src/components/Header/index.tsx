@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LuUserRound } from 'react-icons/lu';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { RxHamburgerMenu } from 'react-icons/rx';
 import { Button, ButtonGroup, Form, InputGroup, ToggleButton } from 'react-bootstrap';
 import { ICategory } from '../../interfaces/misc';
 import '../../styles/Header.scss';
@@ -24,6 +25,8 @@ const Header: React.FC<Props> = (props) => {
   const [searchValue, setSearchValue] = useState('');
   const [searchSelector, setSearchSelector] = useState<number>(-1);
 
+  const [expandedMenu, setExpandedMenu] = useState(false);
+
   const [category, setCategory] = useState('All');
 
   const searchSelectors = [
@@ -37,6 +40,12 @@ const Header: React.FC<Props> = (props) => {
     setSearchValue('');
     setSearchSelector(-1);
   };
+
+  const renderProfileButton = (size: number, addClass?: string) => (
+    <button title="Profile Page" className={`btn-icon ${addClass}`}>
+      <LuUserRound color="#fff" size={size} />
+    </button>
+  );
 
   const renderSearchButton = () => (
     <button title="Search" className="btn-icon px-2" onClick={handleExpand}>
@@ -75,7 +84,7 @@ const Header: React.FC<Props> = (props) => {
   );
 
   const renderCategories = () => (
-    <div className="header-categories">
+    <div className="header-categories d-md-none">
       <ButtonGroup>
         {categories!.map((x, i) => (
           <ToggleButton
@@ -96,24 +105,62 @@ const Header: React.FC<Props> = (props) => {
     </div>
   );
 
+  const renderSideMenu = () => (
+    <div
+      className={`header-menu d-none d-md-block px-4 py-3${!expandedMenu ? ' close' : ''}${expandedSearchBar ? ' expanded-search-bar' : ''}`}
+    >
+      <ul>
+        <li className="mb-2">
+          <a href="/profile" className="d-flex gap-1 text-light text-decoration-none">
+            {renderProfileButton(20)}
+            <p className="h5 m-0 mt-1">Profile</p>
+          </a>
+        </li>
+        <li className="mb-2 d-flex flex-column header-menu__categories">
+          <p className="h5 m-0 mb-1">Categories</p>
+          <ul>
+            {categories!.map((x, i) => (
+              <li
+                key={`category-${i}`}
+                className={`ps-3${category === x.strCategory ? ' active' : ''}`}
+              >
+                <button
+                  className="btn-icon text-light w-100 text-start"
+                  title={x.strCategory}
+                  id={`${x.strCategory}-${i}`}
+                  onClick={() => setCategory(x.strCategory)}
+                >
+                  {x.strCategory}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </li>
+      </ul>
+    </div>
+  );
+
   return (
     <div className="header text-light px-3 py-2 d-flex flex-column">
       <div
         className={`header-top w-100 d-flex justify-content-${hideSearch ? 'center' : 'between'} align-items-center align-self-center`}
       >
-        <a href="/profile">
-          <button
-            title="Profile Page"
-            className={`btn-icon px-2 ${hideSearch ? 'header_profile-button' : ''}`}
-          >
-            <LuUserRound color="#fff" size={35} />
-          </button>
+        <a href="/profile" className={`${categories?.length ? 'd-md-none' : ''}`}>
+          {renderProfileButton(35, `px-2 ${hideSearch ? 'header_profile-button' : ''}`)}
         </a>
+        <button
+          title="Hamburger Menu"
+          className={`btn-icon px-2 d-none ${categories?.length ? 'd-md-block' : ''}`}
+          onClick={() => setExpandedMenu((p) => !p)}
+        >
+          <RxHamburgerMenu color="#fff" size={32} />
+        </button>
         <p className="h1 m-0">{title}</p>
         {hideSearch ? null : renderSearchButton()}
       </div>
       {renderSearchBar()}
       {categories?.length ? renderCategories() : null}
+      {renderSideMenu()}
     </div>
   );
 };
