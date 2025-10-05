@@ -67,7 +67,7 @@ const Header: React.FC<Props> = (props) => {
             id={x.label}
             label={x.label}
             checked={searchSelector === x.index}
-            onClick={() => setSearchSelector(x.index)}
+            onChange={() => setSearchSelector(x.index)}
           />
         ))}
       </div>
