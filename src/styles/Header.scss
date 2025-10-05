@@ -92,6 +92,10 @@
         font-size: 18px !important;
         padding-left: 15px;
         padding-right: 15px;
+
+        &:hover {
+          background-color: #6a737a !important;
+        }
       }
 
       label:first-of-type, label:last-child {
